@@ -1,4 +1,5 @@
 ﻿using ForntEndMultiprog7.Pages;
+using ForntEndMultiprog7.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,18 @@ namespace ForntEndMultiprog7.Model
         public int CanID { get; set; }
         public string Title { get; set; }
         public string AppVer { get; set; }
-        public static string FWTitle  { get; set; }
-        public static string FWVersion { get; set; }
-        public static string FWDate { get; set; }
+        public string FWTitle { get; set; }
+        public string FWVersion { get; set; }
+        public string FWDate { get; set; }
 
         public static void SendReadAsk(byte CanID)
         {
-            /*PageMain.Driver.SendPack(new LKDSFramework.Packs.DataDirect.IAPService.PackV7IAPReadAsk()
+            VMPageMain.Driver.SendPack(new LKDSFramework.Packs.DataDirect.IAPService.PackV7IAPReadAsk()
             {
-                UnitID = PageMain.Driver.Devices[0].UnitID,
+                UnitID = VMPageMain.Driver.Devices[0].UnitID,
                 CanID = CanID,
-                Num = 2            
-            });*/
+                Num = 2
+            });
         }
     }
 }

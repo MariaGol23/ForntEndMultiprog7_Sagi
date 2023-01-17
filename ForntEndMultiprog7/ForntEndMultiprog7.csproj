@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\VMPageConnect.cs" />
     <Compile Include="ViewModels\VMPageMain.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
