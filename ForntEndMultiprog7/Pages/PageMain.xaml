@@ -1,0 +1,222 @@
+﻿<Page x:Class="ForntEndMultiprog7.Pages.PageMain"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ForntEndMultiprog7.Pages"
+      xmlns:vm="clr-namespace:ForntEndMultiprog7.ViewModels"
+      mc:Ignorable="d" 
+      Loaded="Page_Loaded"
+      d:DesignHeight="672" d:DesignWidth="1024"
+      Title="PageMain">
+
+    <Page.DataContext>
+        <vm:VMPageMain/>
+    </Page.DataContext>
+    
+    <Grid Background="#F6F6F6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4"></RowDefinition>
+            <RowDefinition Height="68"></RowDefinition>
+            <RowDefinition Height="20" ></RowDefinition>
+            <RowDefinition Height="254"></RowDefinition>
+            <RowDefinition Height="16"></RowDefinition>
+            <RowDefinition Height="268"></RowDefinition>
+            <RowDefinition Height="24"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="753*"></ColumnDefinition>
+            <ColumnDefinition Width="271*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Border 
+                Height="68"
+                Width="984"
+                HorizontalAlignment="Center"
+                Background="#FFFFFF"
+                CornerRadius="15">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition>
+                            
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label 
+                        x:Name="LVDevCount"
+                    Grid.Column="2"
+                    Content="Обзор устройств"
+                    FontWeight="Bold"
+                        FontSize="14"
+                        Foreground="#486FEF"
+                       />
+                </Grid>
+            </Border>
+
+        </Grid>
+
+        <Border Grid.Column="0"
+                Grid.Row="3"
+                Grid.RowSpan="3"
+                Height="538"
+                Width="733"
+                Background="#FFFFFF"
+                CornerRadius="15">
+            <Grid VerticalAlignment="Bottom" Height="528" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label 
+                    Grid.Row="0"
+                    Content="Обзор устройств"
+                    FontWeight="Bold"
+                        FontSize="14"
+                        Foreground="#486FEF"
+                       />
+                <ListView
+                    x:Name="LVCanDevList"
+                    Grid.Row="1"
+                    BorderThickness="0" 
+                    ItemsSource="{Binding OcVMDevice}"
+                    >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding CanID}"      Header="ID Can" Width="50"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Title}"      Header="Наименование" Width="90"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding AppVer}"     Header="Программная версия" Width="130"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding FWTitle}"    Header="Название прошивки" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding FWVersion}"  Header="Версия прошивки" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding FWDate}"     Header="Дата выпуска прошивки" Width="150"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Foreground" Value="#486FEF"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Background" Value="{x:Null}"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Grid>
+
+        </Border>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="733"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="231"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="3" Margin="0,0,0,0" Height="194" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54"></RowDefinition>
+                    <RowDefinition Height="16"></RowDefinition>
+                    <RowDefinition Height="54"></RowDefinition>
+                    <RowDefinition Height="16"></RowDefinition>
+                    <RowDefinition Height="54"></RowDefinition>
+                    <RowDefinition Height="16"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border 
+                    Grid.Row="0" 
+                    Height="54"
+                    Width="231"
+                    HorizontalAlignment="Center"
+                   >
+                    <Button
+                        x:Name="BtnOnlineMode"
+                        Content="Online"
+                        BorderThickness="0"  
+                        Background ="#486FEF"
+                        FontWeight="Bold"
+                        FontSize="18"
+                        Foreground="White">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </Border>
+                <Border 
+                    Grid.Row="2" 
+                    Height="54"
+                    Width="231"
+                    HorizontalAlignment="Center"
+                    >
+                    <Button
+                        x:Name="BtnOfflineMode"
+                        Content="Offline"
+                        BorderThickness="1"  
+                        BorderBrush="#486FEF"
+                        Background ="White"
+                        FontWeight="Bold"
+                        FontSize="18"
+                        Foreground="#486FEF">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </Border>
+                <Border 
+                    Grid.Row="4" 
+                    Height="54"
+                    Width="231"
+                    HorizontalAlignment="Center">
+                    <Button
+                        x:Name="BtnHandMode"
+                        Content="Ручной режим"
+                        BorderThickness="1"  
+                        BorderBrush="#486FEF"
+                        Background ="White"
+                        FontWeight="Bold"
+                        FontSize="18"
+                        Foreground="#486FEF">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </Border>
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="3"  Grid.Column="1" Margin="0,210,0,0" Grid.RowSpan="3">
+            <Border 
+                Grid.Row="0" 
+                HorizontalAlignment="Center"
+                Width="231"
+                CornerRadius="15"
+                Background="#E0E0E0">
+                <Button
+                        x:Name="BtnUpdate"
+                        Content="Обновить"
+                        BorderThickness="0"  
+                        Background ="#E0E0E0"
+                        FontWeight="Bold"
+                        FontSize="18"
+                        Foreground="White"
+                    Click="BtnUpdate_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </Border>
+
+        </Grid>
+    </Grid>
+</Page>
