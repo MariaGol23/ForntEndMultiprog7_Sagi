@@ -59,8 +59,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\ProgressBarBrushConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\VMPageConnect.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\VMPageMain.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -84,7 +85,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\VMDevice.cs" />
+    <Compile Include="Classes\Device.cs" />
     <Compile Include="Pages\PageConnect.xaml.cs">
       <DependentUpon>PageConnect.xaml</DependentUpon>
     </Compile>

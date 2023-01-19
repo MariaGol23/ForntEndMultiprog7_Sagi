@@ -8,8 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Windows.Data;
+using System.Windows;
+
 namespace ForntEndMultiprog7.ViewModels
 {
+
+
+
+
+    // online
+    // offline
+    // manualmode
+    //
+    // Выбор 1 из трех режимов
+    // Разное по событию клик на любой из них
+    // Мануал - открыть окно и выбрать прошивку
+    // Онлайн - обновить каждое устройство из списка Firmware.xml
+    // Офлайн - обновить каждое устройство из подготовленного списка (нетнетнет)
     public class VMPageMain : BaseViewModel
     {
         #region Vars
@@ -56,6 +71,33 @@ namespace ForntEndMultiprog7.ViewModels
 
         public ObservableCollection<VMDevice> OcVMDevice { get { return ocVMDevice; } }
 
+        private RelayCommand cmdOnline;
+        public RelayCommand CmdOnline
+        {
+            get { return cmdOnline; }
+        }
+
+        private RelayCommand cmdOffline;
+
+        private RelayCommand cmdManualMode;
+
+        private RelayCommand cmdUpdate;
+
+        /*protected void AskTheQuestion()
+        {
+            MessageBox_Show(ProcessTheAnswer, "Are you sure you want to do this?", "Alert", System.Windows.MessageBoxButton.YesNo);
+        }
+        public void ProcessTheAnswer(MessageBoxResult result)
+        {
+            if (result == MessageBoxResult.Yes)
+            {
+                // Do something
+            }
+        }*/
+        public void Print()
+        {
+            Console.WriteLine("aaaa");
+        }
         public VMPageMain()
         {
             ocVMDevice = new ObservableCollection<VMDevice>();
@@ -84,6 +126,7 @@ namespace ForntEndMultiprog7.ViewModels
                 }
                 catch { }
             }
+            cmdOnline = new RelayCommand(Print());
 
         }
 

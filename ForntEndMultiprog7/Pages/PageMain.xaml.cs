@@ -238,10 +238,6 @@ namespace ForntEndMultiprog7.Pages
 
         #region Btn Click events
 
-        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         #endregion
 
 

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ForntEndMultiprog7.Pages"
       xmlns:vm="clr-namespace:ForntEndMultiprog7.ViewModels"
+      xmlns:Microsoft_Windows_Themes="clr-namespace:ForntEndMultiprog7.Model"
       mc:Ignorable="d" 
       Loaded="Page_Loaded"
       d:DesignHeight="672" d:DesignWidth="1024"
@@ -13,7 +14,7 @@
     <Page.DataContext>
         <vm:VMPageMain/>
     </Page.DataContext>
-    
+
     <Grid Background="#F6F6F6">
         <Grid.RowDefinitions>
             <RowDefinition Height="4"></RowDefinition>
@@ -38,18 +39,54 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition>
-                            
-                        </ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label 
-                        x:Name="LVDevCount"
-                    Grid.Column="2"
-                    Content="Обзор устройств"
-                    FontWeight="Bold"
-                        FontSize="14"
-                        Foreground="#486FEF"
-                       />
+                    <Grid Grid.Column="0">
+                        <Rectangle x:Name="PART_Indicator">
+                            <Rectangle.Fill>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <Microsoft_Windows_Themes:ProgressBarBrushConverter/>
+                                    </MultiBinding.Converter>
+                                    <Binding Path="Foreground" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                    <Binding Path="IsIndeterminate" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                    <Binding Path="ActualWidth" ElementName="PART_Indicator"/>
+                                    <Binding Path="ActualHeight" ElementName="PART_Indicator"/>
+                                    <Binding Path="ActualWidth" ElementName="PART_Track"/>
+                                </MultiBinding>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Grid>
+                  
+                    
+                    
+                    <Grid Grid.Column="1" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Grid.Column="0"
+                            FontWeight="Bold"
+                            FontSize="16"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Foreground="#486FEF">
+                                Количество
+                                <LineBreak/>
+                                устройств:
+                        </TextBlock>
+                        <Label 
+                            x:Name="LVDevCount"
+                            Grid.Column="1"
+                            FontWeight="Bold"
+                            Content="10000"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="26"
+                            Foreground="#486FEF"/>
+                    </Grid>
+                   
                 </Grid>
             </Border>
 
@@ -71,7 +108,7 @@
                     Grid.Row="0"
                     Content="Обзор устройств"
                     FontWeight="Bold"
-                        FontSize="14"
+                        FontSize="16"
                         Foreground="#486FEF"
                        />
                 <ListView
@@ -134,7 +171,8 @@
                         Background ="#486FEF"
                         FontWeight="Bold"
                         FontSize="18"
-                        Foreground="White">
+                        Foreground="White"
+                        Command="{Binding CmdOnline}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="15"/>
@@ -157,7 +195,8 @@
                         Background ="White"
                         FontWeight="Bold"
                         FontSize="18"
-                        Foreground="#486FEF">
+                        Foreground="#486FEF"
+                        Command="{Binding CmdOffline}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="15"/>
@@ -179,7 +218,8 @@
                         Background ="White"
                         FontWeight="Bold"
                         FontSize="18"
-                        Foreground="#486FEF">
+                        Foreground="#486FEF"
+                        Command="{Binding CmdManualMode}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="15"/>
@@ -207,7 +247,7 @@
                         FontWeight="Bold"
                         FontSize="18"
                         Foreground="White"
-                    Click="BtnUpdate_Click">
+                        Command="{Binding CmdUpdate}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
