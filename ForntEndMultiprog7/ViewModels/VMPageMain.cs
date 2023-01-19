@@ -118,7 +118,6 @@ namespace ForntEndMultiprog7.ViewModels
                     var Devices = DeviceV7.FromArgs(App.Args);
                     Driver.AddDevice(ref Devices[0]);
 
-
                     /*LVCanDevList.ItemsSource = OcVMDevice;
                     lbConnectionForm.Device = Devices[0];
                     IsConnected = true;
@@ -126,7 +125,11 @@ namespace ForntEndMultiprog7.ViewModels
                 }
                 catch { }
             }
-            cmdOnline = new RelayCommand(Print());
+            var cmd = new RelayCommand(o => 
+            {
+                // code
+            });
+            cmd.Execute("1");
 
         }
 

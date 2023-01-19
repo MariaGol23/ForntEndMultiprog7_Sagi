@@ -9,44 +9,24 @@ namespace ForntEndMultiprog7.ViewModels
 {
     public class RelayCommand : ICommand
     {
-
-        protected Action action = null;
         private Action<object> execute;
-        protected Action<object> parameterizedAction = null;
-        private bool canExecute = false;
+        private Func<object, bool> canExecute;
 
-        public event EventHandler CanExecuteChanged;
-        public RelayCommand(Action action, bool canExecute = true)
+        public event EventHandler CanExecuteChanged
         {
-            this.action = action;
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            this.execute = execute;
             this.canExecute = canExecute;
         }
 
-        public RelayCommand(Action<object> parameterizedAction, bool canExecute = true)
+        public bool CanExecute(object parameter)
         {
-            //  Set the action.
-            this.parameterizedAction = parameterizedAction;
-            this.canExecute = canExecute;
-        }
-
-        public bool CanExecute
-        {
-            get { return canExecute; }
-            set
-            {
-                if (canExecute != value)
-                {
-                    canExecute = value;
-                    EventHandler canExecuteChanged = CanExecuteChanged;
-                    if (canExecuteChanged != null)
-                        canExecuteChanged(this, EventArgs.Empty);
-                }
-            }
-        }
-
-        bool ICommand.CanExecute(object parameter)
-        {
-            return canExecute;
+            return this.canExecute == null || this.canExecute(parameter);
         }
 
         public void Execute(object parameter)
