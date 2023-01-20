@@ -29,32 +29,16 @@ namespace ForntEndMultiprog7.ViewModels
     {
         #region Vars
 
-        const string CanDevTxt = "Устройства CAN-шины.";
-        const string ModeFat = "Продвинутый режим";
-        const string ModeSimple = "Упрощенный режим";
-        const string SendCmdOnSubdev = "Отправка команд на Device #";
-        const int FatX = 1172;
-        const int FatY = 804;
-        const int SimpleX = 690;
-        const int SimpleY = 365;
         const int PartSize = 928;
 
         public static DriverV7 Driver = new DriverV7();
         List<SubDeviceV7> SubDevices = new List<SubDeviceV7>();
         LKDSFramework.Packs.DataDirect.IAPService.PackV7IAPWriteAns FirmwareLoadPackAns;
         SubDeviceV7 FocusedDev;
-        string ActivePageTxt;
         string FileExt;
 
-        //Process OpenedProcLKDS;
-
         bool SendLastFragFlag = false;
-        bool FatMode = false;
-        bool IsLiftBlock = false;
-        bool IsConnected = false;
 
-        int CounterDevSubdev = 0;
-        int x, y;
         int PageNum;
 
         byte SelectedDevOrSubDevCANID;
@@ -63,25 +47,34 @@ namespace ForntEndMultiprog7.ViewModels
 
         #endregion
 
-
-        private ObservableCollection<VMDevice> ocVMDevice;
-        private object _lock = new object();
         bool FWGet = false;
         bool LBCheck = false;
 
+
+        private int counterDevSubdev = 0;
+        public int CounterDevSubdev { get { return counterDevSubdev; } }
+
+
+
+
+        private object _lock = new object();
+        private ObservableCollection<VMDevice> ocVMDevice;
+
+
         public ObservableCollection<VMDevice> OcVMDevice { get { return ocVMDevice; } }
 
+        #region Cmds
         private RelayCommand cmdOnline;
-        public RelayCommand CmdOnline
-        {
-            get { return cmdOnline; }
-        }
+
+        public RelayCommand CmdOnline;
 
         private RelayCommand cmdOffline;
 
         private RelayCommand cmdManualMode;
 
         private RelayCommand cmdUpdate;
+
+        #endregion
 
         /*protected void AskTheQuestion()
         {
@@ -94,6 +87,7 @@ namespace ForntEndMultiprog7.ViewModels
                 // Do something
             }
         }*/
+
         public void Print()
         {
             Console.WriteLine("aaaa");
@@ -125,11 +119,11 @@ namespace ForntEndMultiprog7.ViewModels
                 }
                 catch { }
             }
-            var cmd = new RelayCommand(o => 
+            cmdOnline = new RelayCommand(o => 
             {
                 // code
             });
-            cmd.Execute("1");
+            cmdOnline.Execute("1");
 
         }
 
@@ -228,12 +222,26 @@ namespace ForntEndMultiprog7.ViewModels
                             char[] FWName = packV7IAPReadAns.PageState.Name.ToCharArray();
                             for (int i = FWName.Length-1; i>0 ; i--)
                             {
-                                if (Char.IsDigit(FWName[i]))
+                                if (Char.IsDigit(FWName[i]) || FWName[i].Equals('0'))
                                 {
                                     FWVer += FWName[i];
                                 }
                                 else
                                 {
+                                    try
+                                    {
+                                        int a = (int)FWName[i];
+                                        if (a.Equals(32))
+                                        {
+                                            continue;
+                                        } else
+                                        {
+                                            break;
+                                        }
+                                    } catch
+                                    {
+                                        break;
+                                    }
                                     break;
                                 }
                             }
@@ -285,13 +293,16 @@ namespace ForntEndMultiprog7.ViewModels
         private void Driver_OnSubDevChange(SubDeviceV7 dev)
         {
             try
-            {
+            { 
                 lock (_lock)
                 {
                     FWGet = true;
                     VMDevice.SendReadAsk(dev.CanID);
+                    counterDevSubdev++;
+                    OnPropertyChanged(nameof(CounterDevSubdev));
+
                 }
-                
+               
 
                 if (SubDevices.Count > 0)
                 {
@@ -306,14 +317,11 @@ namespace ForntEndMultiprog7.ViewModels
                     }
                 }
 
-                /*DevCount = $"{CanDevTxt} Количество подключенных устройств: {CounterDevSubdev + 1}";
-                LVDevCount.Content = DevCount;
-                LVCanDevList.Items.Refresh()*/;
-
                 SubDevices.Add(dev);
             }
             catch { }
         }
+
 
         public void FillOc(VMDevice vMDevice)
         {

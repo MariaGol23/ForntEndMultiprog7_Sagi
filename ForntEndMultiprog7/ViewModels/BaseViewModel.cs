@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace ForntEndMultiprog7.ViewModels
 {
-    public class BaseViewModel
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -17,16 +17,16 @@ namespace ForntEndMultiprog7.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public event EventHandler<MvvmMessageBoxEventArgs> MessageBoxRequest;
+        /*public event EventHandler<MvvmMessageBoxEventArgs> MessageBoxRequest;
         protected void MessageBox_Show(Action<MessageBoxResult> resultAction, string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.None, MessageBoxOptions options = MessageBoxOptions.None)
         {
             if (this.MessageBoxRequest != null)
             {
                 this.MessageBoxRequest(this, new MvvmMessageBoxEventArgs(resultAction, messageBoxText, caption, button, icon, defaultResult, options));
             }
-        }
+        }*/
     }
-    public class MvvmMessageBoxEventArgs : EventArgs
+  /*  public class MvvmMessageBoxEventArgs : EventArgs
     {
         public MvvmMessageBoxEventArgs(Action<MessageBoxResult> resultAction, string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.None, MessageBoxOptions options = MessageBoxOptions.None)
         {
@@ -58,5 +58,5 @@ namespace ForntEndMultiprog7.ViewModels
             MessageBoxResult messageBoxResult = MessageBox.Show(messageBoxText, caption, button, icon, defaultResult, options);
             if (resultAction != null) resultAction(messageBoxResult);
         }
-    }
+    }*/
 }

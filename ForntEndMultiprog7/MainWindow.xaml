@@ -164,7 +164,7 @@
                 </Button.Triggers>
             </Button>
         </Grid>
-        <Frame Grid.Row="1" x:Name="FrameMain"/>
+        <Frame Grid.Row="1" x:Name="FrameMain" NavigationUIVisibility="Hidden"/>
     </Grid>
     
 </Window>

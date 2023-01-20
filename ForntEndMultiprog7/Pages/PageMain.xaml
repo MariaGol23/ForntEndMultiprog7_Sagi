@@ -77,10 +77,10 @@
                                 устройств:
                         </TextBlock>
                         <Label 
-                            x:Name="LVDevCount"
+                            x:Name="LBDevCount"
                             Grid.Column="1"
                             FontWeight="Bold"
-                            Content="10000"
+                            Content="{Binding CounterDevSubdev}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             FontSize="26"
@@ -163,21 +163,13 @@
                     Height="54"
                     Width="231"
                     HorizontalAlignment="Center"
+                    CornerRadius="15"
                    >
                     <Button
                         x:Name="BtnOnlineMode"
                         Content="Online"
-                        BorderThickness="0"  
-                        Background ="#486FEF"
-                        FontWeight="Bold"
-                        FontSize="18"
-                        Foreground="White"
+                        Style="{StaticResource BtnActiveMode}"  
                         Command="{Binding CmdOnline}">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="15"/>
-                            </Style>
-                        </Button.Resources>
                     </Button>
 
                 </Border>
@@ -190,18 +182,9 @@
                     <Button
                         x:Name="BtnOfflineMode"
                         Content="Offline"
-                        BorderThickness="1"  
-                        BorderBrush="#486FEF"
-                        Background ="White"
-                        FontWeight="Bold"
-                        FontSize="18"
-                        Foreground="#486FEF"
+                        Style="{StaticResource BtnInactiveMode}"
                         Command="{Binding CmdOffline}">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="15"/>
-                            </Style>
-                        </Button.Resources>
+
                     </Button>
 
                 </Border>
@@ -213,18 +196,8 @@
                     <Button
                         x:Name="BtnHandMode"
                         Content="Ручной режим"
-                        BorderThickness="1"  
-                        BorderBrush="#486FEF"
-                        Background ="White"
-                        FontWeight="Bold"
-                        FontSize="18"
-                        Foreground="#486FEF"
+                        Style="{StaticResource BtnInactiveMode}"
                         Command="{Binding CmdManualMode}">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="15"/>
-                            </Style>
-                        </Button.Resources>
                     </Button>
 
                 </Border>
