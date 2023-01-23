@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Windows.Data;
 using System.Windows;
+using System.Diagnostics;
 
 namespace ForntEndMultiprog7.ViewModels
 {
@@ -47,9 +48,42 @@ namespace ForntEndMultiprog7.ViewModels
 
         #endregion
 
+        Stopwatch stopwatch = new Stopwatch();
+
+
         bool FWGet = false;
         bool LBCheck = false;
 
+        bool CheckAnalyze = false;
+
+        private string timeview = "";
+        private long time = 0;
+        public string TimeView { get { return timeview; } }
+
+        private string labelContentUpdate = "Обновление";
+        private string labelContentAnalyze = "Анализ";
+        public string LabelContentView 
+        { 
+            get 
+            { 
+                if (CheckAnalyze)
+                {
+                    return labelContentAnalyze;
+                }
+                else
+                {
+                    return labelContentUpdate;
+                }
+            } 
+            set { } 
+        }
+
+        private int progressMax = 1;
+        public int ProgressMax { get { return progressMax; } }
+
+
+        private int progressValue = 0;
+        public int ProgressValue { get { return progressValue; } }
 
         private int counterDevSubdev = 0;
         public int CounterDevSubdev { get { return counterDevSubdev; } }
@@ -66,7 +100,18 @@ namespace ForntEndMultiprog7.ViewModels
         #region Cmds
         private RelayCommand cmdOnline;
 
-        public RelayCommand Online_Click;
+        public RelayCommand Online_Click { 
+            get {
+                return cmdOnline ??
+                  (cmdOnline = new RelayCommand(obj =>
+                  {
+                      Console.WriteLine("aaaaaaaaaa");
+
+
+
+                  }));
+            } 
+        }
 
         private RelayCommand cmdOffline;
 
@@ -88,10 +133,7 @@ namespace ForntEndMultiprog7.ViewModels
             }
         }*/
 
-        public void Print()
-        {
-            Console.WriteLine("aaaa");
-        }
+
         public VMPageMain()
         {
             ocVMDevice = new ObservableCollection<VMDevice>();
@@ -119,12 +161,6 @@ namespace ForntEndMultiprog7.ViewModels
                 }
                 catch { }
             }
-            cmdOnline = new RelayCommand(o => 
-            {
-                Console.WriteLine("aaaaaaaaaa");
-            });
-            cmdOnline.Execute("1");
-            OnPropertyChanged(nameof(Online_Click));
 
         }
 
@@ -219,6 +255,9 @@ namespace ForntEndMultiprog7.ViewModels
                             }*/
                         lock (_lock)
                         {
+                            stopwatch.Start();
+                            progressValue++;
+
                             string FWVer = "";
                             char[] FWName = packV7IAPReadAns.PageState.Name.ToCharArray();
                             for (int i = FWName.Length-1; i>0 ; i--)
@@ -243,7 +282,6 @@ namespace ForntEndMultiprog7.ViewModels
                                     {
                                         break;
                                     }
-                                    break;
                                 }
                             }
                             FWName = FWVer.Reverse().ToArray();
@@ -269,6 +307,7 @@ namespace ForntEndMultiprog7.ViewModels
                             {
                                 dev = Driver.Devices[0].SubDevices[pack.CanID];
                             }
+
                             VMDev = new VMDevice()
                             {
                                 CanID = dev.CanID,
@@ -279,6 +318,15 @@ namespace ForntEndMultiprog7.ViewModels
                                 FWDate = "Не определено"
                             };
                             FillOc(VMDev);
+                            stopwatch.Stop();
+                            TimeSpan Ts = stopwatch.Elapsed;
+                            time = counterDevSubdev-progressValue * (long)(Ts.Milliseconds) / 1000;
+
+                            long min = time / 60;
+                            long sec = time - min * 60;
+                            timeview = $"{min}мин{sec}сек";
+                            OnPropertyChanged(nameof(TimeView));
+                            OnPropertyChanged(nameof(ProgressValue));
                         }
                         //WriteRecieve(IAPAns);
                     }
@@ -299,9 +347,15 @@ namespace ForntEndMultiprog7.ViewModels
                 {
                     FWGet = true;
                     VMDevice.SendReadAsk(dev.CanID);
+
+                    progressMax = counterDevSubdev;
+                    OnPropertyChanged(nameof(ProgressMax));
+
                     counterDevSubdev++;
                     OnPropertyChanged(nameof(CounterDevSubdev));
-
+                    
+                    CheckAnalyze = true;
+                    OnPropertyChanged(nameof(LabelContentView));
                 }
                
 

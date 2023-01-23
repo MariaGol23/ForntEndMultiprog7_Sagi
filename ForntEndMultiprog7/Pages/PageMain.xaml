@@ -51,21 +51,37 @@
                         </Grid.ColumnDefinitions>
                         <Label 
                             FontWeight="Bold"
-                            Content="Обновление"
+                            Content="{Binding LabelContentView}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             FontSize="14"
                             Margin="10,0,0,0"
                             Foreground="#486FEF"/>
-                        <Label 
-                            Grid.Column="4"
+                        <Grid Grid.Column="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                            Grid.Column="0"
                             FontWeight="Bold"
-                            Content="Осталось"
+                            Content="Осталось:"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Right"
                             FontSize="14"
                             Margin="0,0,0,10"
                             Foreground="#486FEF"/>
+                            <Label 
+                            Grid.Column="1"
+                            FontWeight="Bold"
+                            Content="{Binding TimeView}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            FontSize="14"
+                            Margin="0,0,0,10"
+                            Foreground="#486FEF"/>
+                        </Grid>
+                        
                         <Label Grid.Column="2"
                             FontWeight="Bold"
                             Content="50%"
@@ -83,8 +99,8 @@
                             VerticalAlignment="Bottom"
                             Margin="10">
                             <ProgressBar 
-                                    Value="75"
-                                    Maximum="150"
+                                    Maximum="{Binding ProgressMax, Mode=OneWay}"
+                                    Value="{Binding ProgressValue, Mode=OneWay}"
                                     Foreground="#486FEF">
                             </ProgressBar>
                         </Border>
@@ -109,7 +125,6 @@
                                 устройств:
                         </TextBlock>
                         <Label 
-                            x:Name="LBDevCount"
                             Grid.Column="1"
                             FontWeight="Bold"
                             Content="{Binding CounterDevSubdev}"
