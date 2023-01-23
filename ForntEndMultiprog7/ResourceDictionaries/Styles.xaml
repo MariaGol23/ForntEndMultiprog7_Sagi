@@ -47,8 +47,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border CornerRadius="15"
-                            Background="White"
-                            BorderBrush="#486FEF"
+                            Background="#6FCF97"
                             BorderThickness="1">
                         <ContentPresenter
                             HorizontalAlignment="Center"
@@ -67,8 +66,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border CornerRadius="15"
-                            Background="White"
-                            BorderBrush="#486FEF"
+                            Background="#E0E0E0"
                             BorderThickness="1">
                         <ContentPresenter
                             HorizontalAlignment="Center"
@@ -79,4 +77,109 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="GridViewColumnHeader">
+        <Setter Property="Background" Value="#486FEF"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Padding" Value="2,0"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewColumnHeader">
+                    <Grid >
+                        <Border Name="HeaderBorder" 
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}" 
+                                Width="{TemplateBinding Width}"
+                                BorderThickness="0,0,1,0"
+                                CornerRadius="0,10,0,0">
+                            <ContentPresenter Name="HeaderContent" 
+                                              TextElement.Foreground="White" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              RecognizesAccessKey="False" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ManualMode" TargetType="GridViewColumnHeader">
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewColumnHeader">
+                    <Grid >
+                        <Border Name="HeaderBorder" 
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}" 
+                                Width="{TemplateBinding Width}"
+                                BorderThickness="0,0,0,1"
+                                BorderBrush="#EAEEF1">
+                            <ContentPresenter Name="HeaderContent" 
+                                              TextElement.Foreground="#828282" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              RecognizesAccessKey="False" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#BBB" Offset="0.0"/>
+                <GradientStop Color="#EEE" Offset="0.1"/>
+                <GradientStop Color="#EEE" Offset="0.9"/>
+                <GradientStop Color="#FFF" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+
+
+
+    <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+
+
+
+
+    <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFF" Offset="0.0"/>
+                <GradientStop Color="#AAA" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+
+
+
+    <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#CCC" Offset="0.0"/>
+                <GradientStop Color="#444" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
 </ResourceDictionary>

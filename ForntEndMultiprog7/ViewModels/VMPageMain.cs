@@ -66,7 +66,7 @@ namespace ForntEndMultiprog7.ViewModels
         #region Cmds
         private RelayCommand cmdOnline;
 
-        public RelayCommand CmdOnline;
+        public RelayCommand Online_Click;
 
         private RelayCommand cmdOffline;
 
@@ -121,9 +121,10 @@ namespace ForntEndMultiprog7.ViewModels
             }
             cmdOnline = new RelayCommand(o => 
             {
-                // code
+                Console.WriteLine("aaaaaaaaaa");
             });
             cmdOnline.Execute("1");
+            OnPropertyChanged(nameof(Online_Click));
 
         }
 
